@@ -1,1 +1,13 @@
 @import "tailwindcss";
+.diff-overlay .added {
+    background-color: #ccffcc; /* Light green */
+}
+
+.diff-overlay .removed {
+    background-color: #ffcccc; /* Light red */
+    text-decoration: line-through;
+}
+
+.diff-overlay .unchanged {
+    /* No specific style, inherit from parent */
+}

@@ -1,5 +1,3 @@
-// app/api/writings.ts
-
 import { NextRequest, NextResponse } from 'next/server';
 import dbConnect from '@/lib/mongodb';
 import Writing from '@/models/writing';
@@ -37,7 +35,10 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ message: 'Unauthorized to access this writing', success: false }, { status: 403 });
       }
 
-      return NextResponse.json(writing, { status: 200 });
+      return NextResponse.json({
+        ...writing.toObject(), // Convert Mongoose document to plain object
+        isPublished: writing.isPublished // Include isPublished property
+      }, { status: 200 });
     } else {
       // Fetch all writings for the user
       const writings = await Writing.find({ user_id: decodedToken.userId }).sort({ updated_at: 'desc' });
@@ -65,12 +66,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Invalid token', success: false }, { status: 401 });
     }
 
-    const { title, content } = await req.json() || { title: 'New Writing', content: {} }; // Extract title and content from request body
+    const { title, content, is_published } = await req.json() || { title: 'New Writing', content: {} }; // Extract title and content from request body
 
     const newWriting = new Writing({
       user_id: decodedToken.userId,
       title: title, // Use the provided title or default
       content: content, // Use the provided content or default
+      is_published: is_published
     });
 
     const savedWriting = await newWriting.save();
@@ -102,7 +104,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ message: 'Invalid token', success: false }, { status: 401 });
     }
 
-    const { id, title, content, is_published } = await req.json();
+    const { id, title, content, is_published } = await req.json(); // Changed from is_published to isPublished
 
     if (!id) {
       return NextResponse.json({ message: 'Writing ID is required for updates', success: false }, { status: 400 });
@@ -120,9 +122,8 @@ export async function PUT(req: NextRequest) {
     // Update fields that are present in the request
     if (title) writing.title = title;
     if (content) writing.content = content;
-    if (typeof is_published === 'boolean') writing.is_published = is_published;
+    if ( is_published ) writing.is_published = is_published; // Changed from is_published to isPublished
     writing.updated_at = new Date(); // Update the updated_at timestamp
-
     await writing.save();
 
     return NextResponse.json({ message: 'Writing updated successfully', success: true }, { status: 200 });

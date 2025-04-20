@@ -1,5 +1,3 @@
-// models/writing.ts
-
 import mongoose, { Schema, model, models } from 'mongoose';
 
 const WritingSchema = new Schema({
@@ -18,7 +16,7 @@ const WritingSchema = new Schema({
     type: Object, // Tiptap JSON content
     default: {},
   },
-  is_published: {
+  is_published: { // Changed from is_published to isPublished
     type: Boolean,
     default: false,
   },
