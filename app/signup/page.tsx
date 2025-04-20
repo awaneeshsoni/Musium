@@ -33,7 +33,6 @@ export default function SignupPage() {
         throw new Error(data.message || 'Signup failed');
       }
 
-      // Redirect to dashboard after successful signup
       router.push('/dashboard');
     } catch (err: any) {
       setError(err.message);
@@ -44,20 +43,20 @@ export default function SignupPage() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h2 className="block text-gray-700 text-2xl font-bold mb-6 text-center">Sign Up</h2>
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
+        <h2 className="text-gray-700 text-2xl font-bold mb-6 text-center">Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
               Name
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="name"
               type="text"
-              placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
           <div className="mb-4">
@@ -65,12 +64,12 @@ export default function SignupPage() {
               Email
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
-              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
           <div className="mb-6">
@@ -78,28 +77,36 @@ export default function SignupPage() {
               Password
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
-              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
+          {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
           <div className="flex items-center justify-between">
             <button
-              className="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
               disabled={loading}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               {loading ? 'Signing up...' : 'Sign Up'}
             </button>
-            {/* <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-              Forgot Password?
-            </a> */}
           </div>
-          {error && <p className="text-red-500 text-xs italic mt-4">{error}</p>}
         </form>
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-600">
+            Already have an account?{' '}
+            <button
+              onClick={() => router.push('/login')}
+              className="text-blue-500 hover:underline font-medium"
+            >
+              Login
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   );

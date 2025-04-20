@@ -43,7 +43,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md">
         <h2 className="block text-gray-700 text-2xl font-bold mb-6 text-center">Log In</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -51,12 +51,12 @@ export default function LoginPage() {
               Email
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="email"
               type="email"
-              placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
           <div className="mb-6">
@@ -64,28 +64,35 @@ export default function LoginPage() {
               Password
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
-              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              required
             />
           </div>
+          {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
           <div className="flex items-center justify-between">
             <button
-              className="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               disabled={loading}
             >
               {loading ? 'Logging in...' : 'Log In'}
             </button>
-            {/* <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-              Forgot Password?
-            </a> */}
           </div>
-          {error && <p className="text-red-500 text-xs italic mt-4">{error}</p>}
         </form>
+        <p className="text-sm text-center mt-4 text-gray-600">
+          Don't have an account?{' '}
+          <button
+            onClick={() => router.push('/signup')}
+            className="text-blue-500 hover:underline font-medium"
+            type="button"
+          >
+            Sign up
+          </button>
+        </p>
       </div>
     </div>
   );
