@@ -180,7 +180,7 @@ const LandingPage = () => {
   return (
     <div className="font-serif">
       <nav className="bg-transparent fixed top-0 left-0 w-full z-50">
-        <div className="container mx-auto py-4 px-6 flex items-center justify-between bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-20 rounded-xl shadow-lg mt-2 sm:mt-4"> 
+        <div className="container mx-auto py-4 px-6 flex items-center justify-between bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-20 rounded-xl shadow-lg"> 
 
           <Link href="/" className="flex items-center space-x-2">
             <Image

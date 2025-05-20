@@ -5,7 +5,6 @@ export default function Navbar() {
     return (
         <div>
             <div className="container mx-auto py-4 px-6 flex items-center justify-between bg-white bg-opacity-20 backdrop-blur-md border border-white border-opacity-20 rounded-xl shadow-lg">
-
                 <Link href="/" className="flex items-center space-x-2">
                     <img
                         src="/logo.jpeg"

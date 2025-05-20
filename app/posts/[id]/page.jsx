@@ -45,7 +45,7 @@ export default function PostPage() {
       setError(null);
 
       try {
-        const response = await fetch(`/api/writings?id=${id}`);
+        const response = await fetch(`/api/writings/share?id=${id}`);
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({ message: `HTTP error! Status: ${response.status}` }));
           throw new Error(errorData.message || `HTTP error! Status: ${response.status}`);
